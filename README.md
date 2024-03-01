@@ -92,7 +92,7 @@ Altera o usuario com o id informado.
 ---
 
 *Schema* 
-
+```
 {
   "id": 1,
   "username": "Vinicius_S15",
@@ -102,7 +102,7 @@ Altera o usuario com o id informado.
   "situação": "ATIVO",
   "telefone": "11997831738"
 }
-
+```
 ---
 
 ### Livro
@@ -187,7 +187,7 @@ Altera o livro com o id informado.
 ---
 
 *Schema* 
-
+```
 {
   "id": 1,
   "titulo": "The Disappearance of Hatsune Miku",
@@ -198,5 +198,5 @@ Altera o livro com o id informado.
   "situacao": "Lido",
   "favorito": false
 }
-
+```
 ---

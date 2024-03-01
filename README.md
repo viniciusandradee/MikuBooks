@@ -5,12 +5,9 @@ Software de gerenciamento de livros.
 
 - [ ] CRUD Usuário
 - [ ] CRUD Livro
-- [ ] CRUD Categorias
 - [ ] CRUD Cadastro
 - [ ] CRUD Login
-- [ ] Dashboard
-- [ ] Autenticação
-- [ ] Meus Dados
+
 
 ## Endpoints
 

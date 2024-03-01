@@ -5,8 +5,6 @@ Software de gerenciamento de livros.
 
 - [ ] CRUD Usuário
 - [ ] CRUD Livro
-- [ ] CRUD Cadastro
-- [ ] CRUD Login
 
 
 ## Endpoints

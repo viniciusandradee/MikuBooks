@@ -1,4 +1,4 @@
-package com.example.MikuBooks.controller;
+package com.api.MikuBooks.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.MikuBooks.model.Usuario;
+import com.api.MikuBooks.model.Usuario;
 
 
 @Controller

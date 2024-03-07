@@ -1,4 +1,4 @@
-package com.example.MikuBooks;
+package com.api.MikuBooks;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

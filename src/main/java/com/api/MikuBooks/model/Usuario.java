@@ -1,4 +1,4 @@
-package com.example.MikuBooks.model;
+package com.api.MikuBooks.model;
 
 import java.time.LocalDate;
 import java.util.Random;

@@ -39,11 +39,11 @@ Cadastrar um novo usuario.
 
 | campo | tipo | obrigatório | descrição 
 |-------|------|:-------------:|----------
-| Username | String | ✅ | Username para logar e exibição no site |
-| Email | String | ✅ | Email para logar no site |
-| Password | String | ✅ | Senha para logar no site |
-| Telefone | String | ❌ | Número de telefone do usuário |
-| Data de Nascimento | LocalDate | ✅ | Data de aniversário do usuário |
+| username | String | ✅ | Username para logar e exibição no site |
+| email | String | ✅ | Email para logar no site |
+| password | String | ✅ | Senha para logar no site |
+| telefone | String | ❌ | Número de telefone do usuário |
+| dataNascimento | LocalDate | ✅ | Data de aniversário do usuário |
 
 *Códigos de status*
 
@@ -71,13 +71,13 @@ Altera o usuario com o id informado.
 
 | campo | tipo | Alterável | descrição 
 |-------|------|:-------------:|----------
-| Username | String | ✅ | Username para logar e exibição no site |
-| Email | String | ✅ | Email para logar no site |
-| Password | String | ✅ | Senha para logar no site |
-| Data de Nascimento | LocalDate | ✅ | Data de aniversário do usuário |
-| Situacao | ENUM | ✅ | Situação do usuário, Ativo ou Desativado |
-| Livros | List | ❌ | Livros que o usuário salvou na conta |
-| Id | Long | ❌ | Número | Id do usuário para identificação |
+| username | String | ✅ | Username para logar e exibição no site |
+| email | String | ✅ | Email para logar no site |
+| password | String | ✅ | Senha para logar no site |
+| dataNascimento | LocalDate | ✅ | Data de aniversário do usuário |
+| situacao | ENUM | ✅ | Situação do usuário, Ativo ou Desativado |
+| livros | List | ❌ | Livros que o usuário salvou na conta |
+| id | Long | ❌ | Número | Id do usuário para identificação |
 
 *Códigos de status*
 
@@ -133,10 +133,10 @@ Cadastrar um novo livro.
 
 | campo | tipo | obrigatório | descrição 
 |-------|------|:-------------:|----------
-| Avaliação | float | ✅ | Nota média que o livro possui |
-| Review | String | ❌ | Opinião que o usuário desejar exibir sobre o livro |
-| Situação | String | ✅ | Mostra se o livro ja foi lido, está sendo lido ou ainda irá ler |
-| Favorito | Boolean | ❌ | Adiciona o livro aos favoritos caso seja selecionado (valor inicial: false) |
+| avaliação | float | ✅ | Nota média que o livro possui |
+| review | String | ❌ | Opinião que o usuário desejar exibir sobre o livro |
+| situação | String | ✅ | Mostra se o livro ja foi lido, está sendo lido ou ainda irá ler |
+| favorito | Boolean | ❌ | Adiciona o livro aos favoritos caso seja selecionado (valor inicial: false) |
 
 
 *Códigos de status*
@@ -165,14 +165,14 @@ Altera o livro com o id informado.
 
 | campo | tipo | Alterável | descrição 
 |-------|------|:-------------:|----------
-| Titulo | String | ❌ | Título do livro para busca |
+| titulo | String | ❌ | Título do livro para busca |
 | idLivro | String | ❌ | Título do livro para busca |
-| Categoria | String | ❌ | Categoria em que o livro se encaixa |
-| Paginas | Long | ❌ | Quantidade de páginas no livro |
-| Avaliação | float | ✅ | Nota média que o livro possui |
-| Autor | String | ❌ | Autor do livro |
-| Situação | String | ✅ | Mostra se o livro ja foi lido, está sendo lido ou ainda irá ler |
-| Favorito | Boolean | ✅ | Adiciona o livro aos favoritos caso seja selecionado (valor inicial: false) |
+| categoria | String | ❌ | Categoria em que o livro se encaixa |
+| paginas | Long | ❌ | Quantidade de páginas no livro |
+| avaliação | float | ✅ | Nota média que o livro possui |
+| autor | String | ❌ | Autor do livro |
+| situação | String | ✅ | Mostra se o livro ja foi lido, está sendo lido ou ainda irá ler |
+| favorito | Boolean | ✅ | Adiciona o livro aos favoritos caso seja selecionado (valor inicial: false) |
 
 *Códigos de status*
 

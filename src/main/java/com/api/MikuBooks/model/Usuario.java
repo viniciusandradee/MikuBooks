@@ -1,18 +1,24 @@
 package com.api.MikuBooks.model;
 
 import java.time.LocalDate;
-import java.util.Random;
 
-public record Usuario(Long id, String username, String email, String password, String telefone, LocalDate dataNascimento) {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
 
-    public Usuario(Long id, String username, String email, String password, String telefone, LocalDate dataNascimento){
-        var key = (id != null) ? id : Math.abs( new Random().nextLong() );
-        this.id = key;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.telefone = telefone;
-        this.dataNascimento = dataNascimento;
-    }
+
+@Data
+@Entity
+public class Usuario{
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String username;
+    private String email;
+    private String password;
+    private String telefone;
+    private LocalDate dataNascimento;
 
 }

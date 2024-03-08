@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.MikuBooks.model.Usuario;
+import com.api.MikuBooks.repository.UsuarioRepository;
 
 
 @Controller
@@ -29,9 +31,12 @@ public class UsuarioController {
     Logger log = LoggerFactory.getLogger(getClass());
     List<Usuario> repository = new ArrayList<>();
 
+    @Autowired // CDI // TO DO explicar
+    UsuarioRepository usuarioRepository;
+
     @GetMapping
     public List<Usuario> index() {
-        return repository;
+        return usuarioRepository.findAll();
     }
 
     @PostMapping
@@ -44,58 +49,58 @@ public class UsuarioController {
                 .body(usuario);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<Usuario> get(@PathVariable Long id) {
-        log.info("Buscar por id: {}", id);
+    // @GetMapping("{id}")
+    // public ResponseEntity<Usuario> get(@PathVariable Long id) {
+    //     log.info("Buscar por id: {}", id);
 
-        var optionalUsuario = buscarUsuarioPorId(id);
+    //     var optionalUsuario = buscarUsuarioPorId(id);
 
-        if (optionalUsuario.isEmpty())
-            return ResponseEntity.notFound().build();
+    //     if (optionalUsuario.isEmpty())
+    //         return ResponseEntity.notFound().build();
 
-        return ResponseEntity.ok(optionalUsuario.get());
-    }
+    //     return ResponseEntity.ok(optionalUsuario.get());
+    // }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<Object>destroy(@PathVariable Long id){
-        log.info("Apagando usuario{}", id);
+    // @DeleteMapping("{id}")
+    // public ResponseEntity<Object>destroy(@PathVariable Long id){
+    //     log.info("Apagando usuario{}", id);
 
-        var optionalUsuario = buscarUsuarioPorId(id);
+    //     var optionalUsuario = buscarUsuarioPorId(id);
 
-        if(optionalUsuario.isEmpty())
-            return ResponseEntity.notFound().build();
+    //     if(optionalUsuario.isEmpty())
+    //         return ResponseEntity.notFound().build();
 
 
-        repository.remove(optionalUsuario.get());
+    //     repository.remove(optionalUsuario.get());
 
-        return ResponseEntity.noContent().build();
-    }
+    //     return ResponseEntity.noContent().build();
+    // }
 
-    @PutMapping("{id}")
-    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody Usuario usuario){
+    // @PutMapping("{id}")
+    // public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody Usuario usuario){
 
-        log.info("Atualizando a usuario id{} para {}", id, usuario);
+    //     log.info("Atualizando a usuario id{} para {}", id, usuario);
 
-        var optionalUsuario = buscarUsuarioPorId(id);
+    //     var optionalUsuario = buscarUsuarioPorId(id);
 
-        if(optionalUsuario.isEmpty())
-            return ResponseEntity.notFound().build();
+    //     if(optionalUsuario.isEmpty())
+    //         return ResponseEntity.notFound().build();
         
-        var usuarioEncontrada = optionalUsuario.get();
-        var usuarioAtualizada = new Usuario(id, usuario.username(), usuario.email(), usuario.password(),usuario.telefone(), usuario.dataNascimento());
-        repository.remove(usuarioEncontrada);
-        repository.add(usuarioAtualizada);
+    //     var usuarioEncontrada = optionalUsuario.get();
+    //     var usuarioAtualizada = new Usuario(id, usuario.username(), usuario.email(), usuario.password(),usuario.telefone(), usuario.dataNascimento());
+    //     repository.remove(usuarioEncontrada);
+    //     repository.add(usuarioAtualizada);
 
-        return ResponseEntity.ok().body(usuarioAtualizada);
+    //     return ResponseEntity.ok().body(usuarioAtualizada);
 
-    }
+    // }
     
-    private Optional<Usuario> buscarUsuarioPorId(Long id) {
-        var optionalUsuario = repository
-                .stream()
-                .filter(c -> c.id().equals(id))
-                .findFirst();
-        return optionalUsuario;
-    }
+    // private Optional<Usuario> buscarUsuarioPorId(Long id) {
+    //     var optionalUsuario = repository
+    //             .stream()
+    //             .filter(c -> c.id().equals(id))
+    //             .findFirst();
+    //     return optionalUsuario;
+    // }
 
 }

@@ -3,7 +3,7 @@ Software de gerenciamento de livros.
 
 ## Requisitos
 
-- [ ] CRUD Usuário
+- [x] CRUD Usuário
 - [ ] CRUD Livro
 
 

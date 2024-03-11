@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.api.MikuBooks.model.Usuario;
 import com.api.MikuBooks.repository.UsuarioRepository;
@@ -29,7 +32,6 @@ import com.api.MikuBooks.repository.UsuarioRepository;
 public class UsuarioController {
 
     Logger log = LoggerFactory.getLogger(getClass());
-    List<Usuario> repository = new ArrayList<>();
 
     @Autowired // CDI // TO DO explicar
     UsuarioRepository usuarioRepository;
@@ -40,67 +42,51 @@ public class UsuarioController {
     }
 
     @PostMapping
-    // @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario) {
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Usuario create(@RequestBody Usuario usuario) {
         log.info("cadastrando usuario: {}", usuario);
-        repository.add(usuario);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(usuario);
+        usuarioRepository.save(usuario);
+        return usuario;
     }
 
-    // @GetMapping("{id}")
-    // public ResponseEntity<Usuario> get(@PathVariable Long id) {
-    //     log.info("Buscar por id: {}", id);
+    @GetMapping("{id}")
+    public ResponseEntity<Usuario> get(@PathVariable Long id) {
+        log.info("Buscar por id: {}", id);
 
-    //     var optionalUsuario = buscarUsuarioPorId(id);
+        return usuarioRepository
+                    .findById(id)
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
 
-    //     if (optionalUsuario.isEmpty())
-    //         return ResponseEntity.notFound().build();
+    }
 
-    //     return ResponseEntity.ok(optionalUsuario.get());
-    // }
+    @DeleteMapping("{id}")
+    public ResponseEntity<Object>destroy(@PathVariable Long id){
+        log.info("Apagando usuario{}", id);
 
-    // @DeleteMapping("{id}")
-    // public ResponseEntity<Object>destroy(@PathVariable Long id){
-    //     log.info("Apagando usuario{}", id);
+        verificarSeExisteUsuario(id);
 
-    //     var optionalUsuario = buscarUsuarioPorId(id);
+        usuarioRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 
-    //     if(optionalUsuario.isEmpty())
-    //         return ResponseEntity.notFound().build();
+    @PutMapping("{id}")
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody Usuario usuario){
 
+        log.info("Atualizando a usuario id{} para {}", id, usuario);
 
-    //     repository.remove(optionalUsuario.get());
+        verificarSeExisteUsuario(id);
 
-    //     return ResponseEntity.noContent().build();
-    // }
+        usuario.setId(id);
+        usuarioRepository.save(usuario);
+        return ResponseEntity.ok(usuario);
+    }
 
-    // @PutMapping("{id}")
-    // public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody Usuario usuario){
-
-    //     log.info("Atualizando a usuario id{} para {}", id, usuario);
-
-    //     var optionalUsuario = buscarUsuarioPorId(id);
-
-    //     if(optionalUsuario.isEmpty())
-    //         return ResponseEntity.notFound().build();
-        
-    //     var usuarioEncontrada = optionalUsuario.get();
-    //     var usuarioAtualizada = new Usuario(id, usuario.username(), usuario.email(), usuario.password(),usuario.telefone(), usuario.dataNascimento());
-    //     repository.remove(usuarioEncontrada);
-    //     repository.add(usuarioAtualizada);
-
-    //     return ResponseEntity.ok().body(usuarioAtualizada);
-
-    // }
-    
-    // private Optional<Usuario> buscarUsuarioPorId(Long id) {
-    //     var optionalUsuario = repository
-    //             .stream()
-    //             .filter(c -> c.id().equals(id))
-    //             .findFirst();
-    //     return optionalUsuario;
-    // }
-
+    private void verificarSeExisteUsuario(long id) {
+        usuarioRepository
+            .findById(id)
+            .orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado")
+            );
+    }
 }

@@ -3,6 +3,8 @@ package com.api.MikuBooks.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.api.MikuBooks.validation.TipoMovimentacao;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,15 +22,16 @@ public class Movimentacao {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank @Size(min = 3)
+    @NotBlank(message = "{movimentacao.descricao.notblank}")
+    @Size(min = 3, message = "{movimentacao.descricao.size}")
     private String descricao;
 
-    @Positive
+    @Positive(message = "{movimentacao.valor.positive}")
     private BigDecimal valor;
 
     @PastOrPresent
     private LocalDate data;
     
-    // @TipoMovimentacao
+    @TipoMovimentacao(message = "{movimentacao.tipo.tipomovimentacao}")
     private String tipo; // ENTRADA | SAIDA
 }
